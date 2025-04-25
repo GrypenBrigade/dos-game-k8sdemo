@@ -11,22 +11,25 @@ spec:
     name: http
   selector:
     app: dbox1
-  type: ClusterIP  
-
+  type: ClusterIP   
+  
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
-  name: dboxipxservice1
+  name: dboxservice2
+  labels:
+    app: dboxservice2
 spec:
-  selector:
-    app: dbox1
   ports:
-    - protocol: UDP
-      port: 19900
-      targetPort: 19900
-  type: LoadBalancer           
-  
+  - port: 80
+    targetPort: 80  
+    name: http
+  selector:
+    app: dbox2
+  type: ClusterIP  
+
 ---
 apiVersion: apps/v1 
 kind: Deployment 
@@ -47,36 +50,10 @@ spec:
         image: "containerizedentity/dos-game-k8sdemo"
         ports:
         - containerPort: 80
+        - containerPort: 19900
+
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: dboxservice2
-  labels:
-    app: dboxservice2
-spec:
-  ports:
-  - port: 80
-    targetPort: 80  
-    name: http
-  selector:
-    app: dbox2
-  type: ClusterIP  
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: dboxipxservice2
-spec:
-  selector:
-    app: dbox2
-  ports:
-    - protocol: UDP
-      port: 19900
-      targetPort: 19900
-  type: LoadBalancer           
-  
----
+
 apiVersion: apps/v1 
 kind: Deployment 
 metadata:
@@ -96,6 +73,26 @@ spec:
         image: "containerizedentity/dos-game-k8sdemo"
         ports:
         - containerPort: 80
+        - containerPort: 19901
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: dboxIPX-loadbalancer
+spec:
+  selector:
+    app-group: dboxIPX
+  ports:
+    - name: dbox-udp1
+      protocol: UDP
+      port: 19900
+      targetPort: 19900
+    - name: dbox-udp2
+      protocol: UDP
+      port: 19901
+      targetPort: 19901
 
 ---
 apiVersion: networking.k8s.io/v1
@@ -121,6 +118,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: dboxservice2  
+            name: dboxservice2 
             port:
               number: 80
