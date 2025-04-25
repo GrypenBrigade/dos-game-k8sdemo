@@ -120,8 +120,9 @@ metadata:
         - path: /dosbox2
           pathType: Prefix
           backend:
-            name: dboxservice2
-            port:
-              number: 80
+            service:
+              name: dboxservice2
+              port:
+                number: 80
 
 
