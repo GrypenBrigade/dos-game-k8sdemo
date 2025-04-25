@@ -104,25 +104,23 @@ metadata:
   name: dosbox-ingress
   annotations: 
     nginx.ingress.kubernetes.io/rewrite-target: /
-  spec:
-    ingressClassName: nginx 
-    rules:
-    - host: grypentests.duckdns.org
-      http: 
-        paths:
-        - path: /dosbox1
-          pathType: Prefix
-          backend:
-            service:
-              name: dboxservice1
-              port:
-                number: 80
-        - path: /dosbox2
-          pathType: Prefix
-          backend:
-            service:
-              name: dboxservice2
-              port:
-                number: 80
-
-
+spec:
+  ingressClassName: nginx 
+  rules:
+  - host: grypentests.duckdns.org
+    http: 
+      paths:
+      - path: /dosbox1
+        pathType: Prefix
+        backend:
+          service:
+            name: dboxservice1
+            port:
+              number: 80
+      - path: /dosbox2
+        pathType: Prefix
+        backend:
+          service:
+            name: dboxservice2  # Ensure the service wrapper is here
+            port:
+              number: 80
