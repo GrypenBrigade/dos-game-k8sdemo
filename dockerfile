@@ -49,6 +49,7 @@ RUN echo $PASSWORD | vncpasswd -f > ~/.vnc/passwd && \
 COPY keen /dos/keen
 COPY doom /dos/doom
 
+
 EXPOSE 80
 
 #Copy in supervisor configuration for startup
