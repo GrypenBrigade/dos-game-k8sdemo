@@ -68,3 +68,7 @@ kubectl create -f keen.yaml
 ````
 
 When this is deployed to Kubernetes, Kubernetes will configure the external network to open on port 80 to listen to incoming requests. When used on Azure Kubernetes Services, AKS will create and map a public IP address (htttp://[your ip address]/vnc.html) for the service. Once connected, you can point your browser to the IP address of your cluster and have fun playing your retro games!
+
+
+Original by theonemule
+Modified by GrypenBrigade
