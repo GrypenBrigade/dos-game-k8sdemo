@@ -1,0 +1,97 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: raservice1
+  labels:
+    app: raservice1
+spec:
+  ports:
+  - port: 80
+    targetPort: 80  
+    name: http
+  selector:
+    app: ra1
+  type: LoadBalancer  
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: raipxservice1
+spec:
+  selector:
+    app: ra1
+  ports:
+    - protocol: UDP
+      port: 19900
+      targetPort: 19900
+  type: ClusterIP           
+  
+---
+apiVersion: apps/v1 
+kind: Deployment 
+metadata:
+  name: ra1
+spec:
+  selector:
+    matchLabels:
+      app: ra1
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ra1
+    spec:
+      containers:
+      - name: dosbox-container
+        image: "containerizedentity/dos-game-k8sdemo"
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: raservice2
+  labels:
+    app: raservice2
+spec:
+  ports:
+  - port: 80
+    targetPort: 80  
+    name: http
+  selector:
+    app: ra2
+  type: LoadBalancer  
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: raipxservice2
+spec:
+  selector:
+    app: ra2
+  ports:
+    - protocol: UDP
+      port: 19900
+      targetPort: 19900
+  type: ClusterIP           
+  
+---
+apiVersion: apps/v1 
+kind: Deployment 
+metadata:
+  name: ra2
+spec:
+  selector:
+    matchLabels:
+      app: ra2
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ra2
+    spec:
+      containers:
+      - name: dosbox-container
+        image: "containerizedentity/dos-game-k8sdemo"
+        ports:
+        - containerPort: 80
