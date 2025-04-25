@@ -93,7 +93,7 @@ spec:
       protocol: UDP
       port: 19901
       targetPort: 19901
-type: LoadBalancer
+  type: LoadBalancer
 
 ---
 apiVersion: networking.k8s.io/v1
