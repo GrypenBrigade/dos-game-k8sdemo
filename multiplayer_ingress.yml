@@ -106,9 +106,8 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx 
-  rules:
-  - host: 
-    http: 
+  rules: 
+    - http: 
       paths:
       - path: /dosbox1
         pathType: Prefix
