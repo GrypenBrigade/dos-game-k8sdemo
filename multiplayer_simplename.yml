@@ -1,0 +1,97 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dboxservice1
+  labels:
+    app: dboxservice1
+spec:
+  ports:
+  - port: 80
+    targetPort: 80  
+    name: http
+  selector:
+    app: dbox1
+  type: LoadBalancer  
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dboxipxservice1
+spec:
+  selector:
+    app: dbox1
+  ports:
+    - protocol: UDP
+      port: 19900
+      targetPort: 19900
+  type: ClusterIP           
+  
+---
+apiVersion: apps/v1 
+kind: Deployment 
+metadata:
+  name: dbox1
+spec:
+  selector:
+    matchLabels:
+      app: dbox1
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: dbox1
+    spec:
+      containers:
+      - name: keen-kontainer
+        image: "blaize/keen"
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dboxservice2
+  labels:
+    app: dboxservice2
+spec:
+  ports:
+  - port: 80
+    targetPort: 80  
+    name: http
+  selector:
+    app: dbox2
+  type: LoadBalancer  
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dboxipxservice2
+spec:
+  selector:
+    app: dbox2
+  ports:
+    - protocol: UDP
+      port: 19900
+      targetPort: 19900
+  type: ClusterIP           
+  
+---
+apiVersion: apps/v1 
+kind: Deployment 
+metadata:
+  name: dbox2
+spec:
+  selector:
+    matchLabels:
+      app: dbox2
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: dbox2
+    spec:
+      containers:
+      - name: keen-kontainer
+        image: "blaize/keen"
+        ports:
+        - containerPort: 80
