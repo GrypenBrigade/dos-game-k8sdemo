@@ -110,7 +110,6 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
     service.beta.kubernetes.io/do-loadbalancer-name: "load-balancer"
     service.beta.kubernetes.io/do-loadbalancer-enable-proxy-protocol: "true"
-    nginx.ingress.kubernetes.io/server-snippet: "keepalive_timeout 1s; client_body_timeout 1s;"
 spec:
   ingressClassName: nginx 
   rules: 
