@@ -46,7 +46,7 @@ RUN sed -i "/import RFB/a \
 RUN echo $PASSWORD | vncpasswd -f > ~/.vnc/passwd && \
   chmod 0600 ~/.vnc/passwd
 				
-COPY keen /dos/keen
+COPY warcraft /dos/warcraft
 COPY doom /dos/doom
 
 

@@ -1,6 +1,4 @@
 #!/bin/sh
 # Command to start DOSBox
-xsetroot -solid grey &
-twm &
 
 dosbox -conf ~/.dosbox/dosbox.conf -c "MOUNT C: /dos" -c 'C:' &

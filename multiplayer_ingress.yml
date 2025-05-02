@@ -25,7 +25,7 @@ spec:
     - protocol: UDP
       port: 19900
       targetPort: 19900
-  type: LoadBalancer           
+  type: ClusterIP     
   
 ---
 apiVersion: apps/v1 
@@ -44,7 +44,7 @@ spec:
     spec:
       containers:
       - name: dboxk8s
-        image: "containerizedentity/dos-game-k8sdemo"
+        image: "blaize/keen"
         ports:
         - containerPort: 80
 ---
@@ -74,7 +74,7 @@ spec:
     - protocol: UDP
       port: 19900
       targetPort: 19900
-  type: LoadBalancer           
+  type: ClusterIP           
   
 ---
 apiVersion: apps/v1 
@@ -93,7 +93,7 @@ spec:
     spec:
       containers:
       - name: dboxk8s
-        image: "containerizedentity/dos-game-k8sdemo"
+        image: "blaize/keen"
         ports:
         - containerPort: 80
 
@@ -107,7 +107,7 @@ metadata:
 spec:
   ingressClassName: nginx 
   rules:
-  - host: grypentests.duckdns.org
+  - host: 
     http: 
       paths:
       - path: /dosbox1
